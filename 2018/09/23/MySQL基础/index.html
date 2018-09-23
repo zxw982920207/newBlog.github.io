@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="http://sharvy.top/2018/09/23/MySQL基础/">
+    
+    
+    <title>MySQL | 我的博客 | 彩虹下的人不会迷失方向！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL,SQL">
+    <meta name="description" content="SQL基础 SQL分类DDL 数据定义语言数据定义语言，这些语句定义了不同的数据段、数据库、表、列、索引等数据库对象。常用的语句关键字主要包括create、drop、alter等。简单地来说，就是对数据库内部的对象进行创建、删除、修改等操作的语言。1234567create database dbname   创建数据库drop database dbname 删除数据库create table">
+<meta name="keywords" content="MySQL,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL">
+<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="SQL基础 SQL分类DDL 数据定义语言数据定义语言，这些语句定义了不同的数据段、数据库、表、列、索引等数据库对象。常用的语句关键字主要包括create、drop、alter等。简单地来说，就是对数据库内部的对象进行创建、删除、修改等操作的语言。1234567create database dbname   创建数据库drop database dbname 删除数据库create table">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-23T14:30:52.411Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL">
+<meta name="twitter:description" content="SQL基础 SQL分类DDL 数据定义语言数据定义语言，这些语句定义了不同的数据段、数据库、表、列、索引等数据库对象。常用的语句关键字主要包括create、drop、alter等。简单地来说，就是对数据库内部的对象进行创建、删除、修改等操作的语言。1234567create database dbname   创建数据库drop database dbname 删除数据库create table">
+    
+        <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">周学武</h5>
+          <a href="mailto:xuewu982920207@qq.com" title="xuewu982920207@qq.com" class="mail">xuewu982920207@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zxw982920207" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MySQL</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-22T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-23
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SQL基础"><span class="post-toc-text">SQL基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL分类"><span class="post-toc-text">SQL分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DDL-数据定义语言"><span class="post-toc-text">DDL 数据定义语言</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DML-数据操纵语句"><span class="post-toc-text">DML 数据操纵语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DCL-数据控制语句"><span class="post-toc-text">DCL 数据控制语句</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL高级"><span class="post-toc-text">SQL高级</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#UNION-和UNION-ALL的区别"><span class="post-toc-text">UNION 和UNION ALL的区别</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SQL-HAVING-子句"><span class="post-toc-text">SQL HAVING 子句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SQL-约束"><span class="post-toc-text">SQL 约束</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SQL函数"><span class="post-toc-text">SQL函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MAX-函数"><span class="post-toc-text">MAX()函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MIN-函数"><span class="post-toc-text">MIN()函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#COUNT-函数"><span class="post-toc-text">COUNT()函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#AVG-函数"><span class="post-toc-text">AVG() 函数</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-MySQL基础"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MySQL</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-23 00:00:00" datetime="2018-09-22T16:00:00.000Z"  itemprop="datePublished">2018-09-23</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="SQL基础"><a href="#SQL基础" class="headerlink" title="SQL基础"></a>SQL基础</h2><hr>
+<h3 id="SQL分类"><a href="#SQL分类" class="headerlink" title="SQL分类"></a>SQL分类</h3><h4 id="DDL-数据定义语言"><a href="#DDL-数据定义语言" class="headerlink" title="DDL 数据定义语言"></a>DDL 数据定义语言</h4><p>数据定义语言，这些语句定义了不同的数据段、数据库、表、列、索引等数据库对象。常用的语句关键字主要包括create、drop、alter等。简单地来说，就是对数据库内部的对象进行创建、删除、修改等操作的语言。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database dbname   创建数据库</span><br><span class="line">drop database dbname 删除数据库</span><br><span class="line">create table tablename（</span><br><span class="line">colume1 type1,</span><br><span class="line">colume2 type2,</span><br><span class="line">colume3 type3)  创建表</span><br><span class="line">drop table tablename  删除数据表</span><br></pre></td></tr></table></figure></p>
+<h4 id="DML-数据操纵语句"><a href="#DML-数据操纵语句" class="headerlink" title="DML 数据操纵语句"></a>DML 数据操纵语句</h4><p>数据操纵语句，用于添加、删除、更新和查询数据库记录，并检查数据完整性。常用的语句关键字主要包括insert、delete、update和select等。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">insert into tablename（filed1，filed2） value（value1，value2）；  </span><br><span class="line">插入记录，也可以同时插入多条</span><br><span class="line">update tablename set field1=value1 where field1=&quot;...&quot;;</span><br><span class="line">更新数据记录，可同时更新多个表</span><br><span class="line">delete from tablename [where condition];</span><br><span class="line">select distinct  去掉重复的记录</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>limit a，b限定从a开始的b行数据，默认起始位置为0；</li>
+<li>like匹配，模糊匹配 where 列名 like ‘%**’，‘%a’ 以a结尾的数据；’a%’ 以a开头的数据；’<em>a’ 两位，且结尾为a。总的来说，%表示多个字符，</em>表示一个字符；</li>
+<li>Between…and…操作符在where子句中使用，作用是选取介于两个值之间的数据范围，不包括右边界，这些值可以是数值，文本或者日期；</li>
+<li>内连接 inner join是产生A和B的交集；外连接可分为左连接，右连接，全连接；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">** 连接 **</span><br><span class="line">笛卡尔积：两表关联，把左表的列和右表的列通过笛卡尔积的形式表达出来；</span><br><span class="line">select * from t1 join t2;</span><br><span class="line"></span><br><span class="line">左连接：两表关联，左表全部保留，右表关联不上用null表示；</span><br><span class="line">select * from t1 left join t2 on t1.id = t2.id;</span><br><span class="line"></span><br><span class="line">右连接：右表全部保留，左表关联不上的用null表示；</span><br><span class="line">select * from t1 right join t2 on t1.id =t2.id;</span><br><span class="line"></span><br><span class="line">内连接：两表关联，保留两表中交集的记录；</span><br><span class="line">select * from t1 inner join t2 on t1.id = t2.id;</span><br><span class="line"></span><br><span class="line">左表独有：两表关联，查询左表独有的数据；</span><br><span class="line">select * from t1 left join t2 on t1.id = t2.id where t2.id is null;</span><br><span class="line"></span><br><span class="line">右表独有：两表关联，查询右表独有的数据；</span><br><span class="line">select * from t1 right join t2 on t1.id = t2.id where t1.id is null;</span><br><span class="line"></span><br><span class="line">全连接：两表关联，查询它们的所有记录；</span><br><span class="line">oracle里面有full join,但是在mysql中没有full join，我们可以使用union来达到目的；</span><br><span class="line">select * from t1 left join t2 on t1.id = t2.id union select * from t1 right join t2 on t1.id = t2.id;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="DCL-数据控制语句"><a href="#DCL-数据控制语句" class="headerlink" title="DCL 数据控制语句"></a>DCL 数据控制语句</h4><p>数据控制语句，用于控制不同数据段直接的许可和访问级别的语句。这些语句定义了数据库、表、字段、用户的访问权限和安全级别。主要关键字包括grant、revoke等。</p>
+<h3 id="SQL高级"><a href="#SQL高级" class="headerlink" title="SQL高级"></a>SQL高级</h3><h4 id="UNION-和UNION-ALL的区别"><a href="#UNION-和UNION-ALL的区别" class="headerlink" title="UNION 和UNION ALL的区别"></a>UNION 和UNION ALL的区别</h4><ul>
+<li>在数据库中，UNION和UNION ALL关键字都是将两个结果集合并为一个，但这两者从使用和效率上来说都有所不同；</li>
+<li>UNION在进行表链接后会筛选掉重复的记录，所以在表链接后会对所产生的结果集进行排序运算，删除重复的记录再返回结果；</li>
+<li>UNION ALL只是简单的将两个结果合并后就返回；<br>从效率上说，UNION ALL 要比UNION快很多，所以，如果可以确认合并的两个结果集中不包含重复的数据的话，那么就使用UNION ALL。</li>
+</ul>
+<h4 id="SQL-HAVING-子句"><a href="#SQL-HAVING-子句" class="headerlink" title="SQL HAVING 子句"></a>SQL HAVING 子句</h4><ul>
+<li>HAVING 子句使你能够指定过滤条件，从而控制查询结果中哪些组可以出现在最终结果里面。</li>
+<li>WHERE 子句对被选择的列施加条件，而 HAVING 子句则对 GROUP BY 子句所产生的组施加条件。</li>
+<li>在 SELECT 查询中，HAVING 子句必须紧随 GROUP BY 子句，并出现在 ORDER BY 子句（如果有的话）之前。</li>
+</ul>
+<h4 id="SQL-约束"><a href="#SQL-约束" class="headerlink" title="SQL 约束"></a>SQL 约束</h4><p>约束是作用于数据表中列上的规则，用于限制表中数据的类型。约束的存在保证了数据库中数据的精确性和可靠性。约束有列级和表级之分，列级约束作用于单一的列，而表级约束作用于整张数据表。</p>
+<ul>
+<li>NOT NULL 约束：保证列中数据不能有 NULL 值</li>
+<li>DEFAULT 约束：提供该列数据未指定时所采用的默认值</li>
+<li>UNIQUE 约束：保证列中的所有数据各不相同</li>
+<li>主键约束：唯一标识数据表中的行/记录</li>
+<li>外键约束：唯一标识其他表中的一条行/记录</li>
+<li>CHECK 约束：此约束保证列中的所有值满足某一条件</li>
+<li>索引：用于在数据库中快速创建或检索数据</li>
+</ul>
+<p>约束可以在创建表时规定（通过 CREATE TABLE 语句），或者在表创建之后规定（通过 ALTER TABLE 语句）。</p>
+<h3 id="SQL函数"><a href="#SQL函数" class="headerlink" title="SQL函数"></a>SQL函数</h3><h4 id="MAX-函数"><a href="#MAX-函数" class="headerlink" title="MAX()函数"></a>MAX()函数</h4><p>MAX() 函数返回所选列的最大值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT MAX(column_name) FROM table_name WHERE condition;</span><br></pre></td></tr></table></figure></p>
+<h4 id="MIN-函数"><a href="#MIN-函数" class="headerlink" title="MIN()函数"></a>MIN()函数</h4><p>MIN() 函数返回所选列的最小值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT MIN(column_name) FROM table_name WHERE condition;</span><br></pre></td></tr></table></figure></p>
+<h4 id="COUNT-函数"><a href="#COUNT-函数" class="headerlink" title="COUNT()函数"></a>COUNT()函数</h4><p>COUNT() 函数返回符合指定条件的行数。 </p>
+<p>SQL COUNT(column_name) 语法<br>COUNT(column_name) 函数返回指定列的值的数目（NULL 不计入）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(column_name) FROM table_name WHERE condition;</span><br></pre></td></tr></table></figure></p>
+<p>SQL COUNT(<em>) 语法<br>COUNT(</em>) 函数返回表中的记录数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM table_name;</span><br></pre></td></tr></table></figure></p>
+<p>SQL COUNT(DISTINCT column_name) 语法<br>COUNT(DISTINCT column_name) 函数返回指定列的不同值的数目：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(DISTINCT column_name) FROM table_name;</span><br></pre></td></tr></table></figure></p>
+<h4 id="AVG-函数"><a href="#AVG-函数" class="headerlink" title="AVG() 函数"></a>AVG() 函数</h4><p>AVG() 函数返回数字列的平均值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT AVG(column_name) FROM table_name WHERE condition;</span><br></pre></td></tr></table></figure></p>
+<p>还有很多函数，详情见<a href="http://www.runoob.com/sql/sql-function.html" target="_blank" rel="noopener">菜鸟教程</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-23T14:30:52.411Z" itemprop="dateUpdated">2018-09-23 22:30:52</time>
+</span><br>
+
+
+        
+        转载请注明出处：<a href="/2018/09/23/MySQL基础/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://github.com/zxw982920207/zxw982920207.github.io">
+            <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" alt="周学武">
+            周学武
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&title=《MySQL》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&title=《MySQL》 — 我的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/08/20/Java学习/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java学习</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="http://pccmxww5q.bkt.clouddn.com/weixinpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="http://pccmxww5q.bkt.clouddn.com/weixinpay.png" data-alipay="http://pccmxww5q.bkt.clouddn.com/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>周学武 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&title=《MySQL》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&title=《MySQL》 — 我的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/23/MySQL基础/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'zhouxuewu's blog';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'welcome';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
