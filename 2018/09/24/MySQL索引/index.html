@@ -31,12 +31,10 @@
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。  优点：MySQL索引的建立对于MySQL的高效运行是很重要的，大大减轻了服务器需要扫描的数据量，从而提高了数据的检索速度；帮助服务器避免排序和临时表；可以将随机I/O变为顺序I/O 缺点：虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/source/img/b+(1).png">
-<meta property="og:updated_time" content="2018-09-24T09:00:42.344Z">
+<meta property="og:updated_time" content="2018-09-24T09:04:52.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引">
 <meta name="twitter:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。  优点：MySQL索引的建立对于MySQL的高效运行是很重要的，大大减轻了服务器需要扫描的数据量，从而提高了数据的检索速度；帮助服务器避免排序和临时表；可以将随机I/O变为顺序I/O 缺点：虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，">
-<meta name="twitter:image" content="https://github.com/source/img/b+(1).png">
     
         <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
     
@@ -205,13 +203,6 @@
 <p>红黑树往往出现由于树的深度过大而造成磁盘IO读写过于频繁，进而导致效率低下的情况。由于逻辑上很近的结点（父子结点）物理上可能离得很远，无法利用局部性原理。</p>
 <h3 id="索引结构-1"><a href="#索引结构-1" class="headerlink" title="索引结构"></a>索引结构</h3><h4 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h4><p>B-树和B+树最重要的一个区别就是B+树只有叶节点存放数据，其余节点用来索引，而B-树是每个索引节点都会有Data域。这就决定了B+树更适合用来存储外部数据，也就是所谓的磁盘数据。从Mysql（Inoodb）的角度来看，B+树是用来充当索引的，一般来说索引非常大，尤其是关系性数据库这种数据量大的索引能达到亿级别，所以为了减少内存的占用，索引也会被存储在磁盘上。</p>
 <p>MyISAM引擎使用B+Tree作为索引结构，叶结点的data域存放的是数据记录的地址。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="\source\img\b+(1).png" alt="Alt text" title="">
-                </div>
-                <div class="image-caption">Alt text</div>
-            </figure>
 
         </div>
 
@@ -220,7 +211,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-24T09:00:42.344Z" itemprop="dateUpdated">2018-09-24 17:00:42</time>
+    最后更新时间：<time datetime="2018-09-24T09:04:52.514Z" itemprop="dateUpdated">2018-09-24 17:04:52</time>
 </span><br>
 
 
