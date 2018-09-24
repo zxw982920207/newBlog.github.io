@@ -32,7 +32,8 @@
 <meta property="og:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。  优点：MySQL索引的建立对于MySQL的高效运行是很重要的，大大减轻了服务器需要扫描的数据量，从而提高了数据的检索速度；帮助服务器避免排序和临时表；可以将随机I/O变为顺序I/O 缺点：虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b%2B(1).png">
-<meta property="og:updated_time" content="2018-09-24T13:06:09.913Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b2.png">
+<meta property="og:updated_time" content="2018-09-24T14:13:56.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引">
 <meta name="twitter:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。  优点：MySQL索引的建立对于MySQL的高效运行是很重要的，大大减轻了服务器需要扫描的数据量，从而提高了数据的检索速度；帮助服务器避免排序和临时表；可以将随机I/O变为顺序I/O 缺点：虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，">
@@ -60,7 +61,7 @@
     <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg">
+          <img src="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">周学武</h5>
@@ -162,7 +163,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引分类"><span class="post-toc-text">索引分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通索引"><span class="post-toc-text">普通索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#唯一索引"><span class="post-toc-text">唯一索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主键索引"><span class="post-toc-text">主键索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全文索引"><span class="post-toc-text">全文索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引"><span class="post-toc-text">组合索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引结构"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从使用磁盘I-O次数评价索引结构的优劣性"><span class="post-toc-text">从使用磁盘I/O次数评价索引结构的优劣性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#索引结构-1"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#B-Tree索引"><span class="post-toc-text">B-Tree索引</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引分类"><span class="post-toc-text">索引分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通索引"><span class="post-toc-text">普通索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#唯一索引"><span class="post-toc-text">唯一索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主键索引"><span class="post-toc-text">主键索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全文索引"><span class="post-toc-text">全文索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引"><span class="post-toc-text">组合索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引结构"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从使用磁盘I-O次数评价索引结构的优劣性"><span class="post-toc-text">从使用磁盘I/O次数评价索引结构的优劣性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#索引结构-1"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#B-Tree索引"><span class="post-toc-text">B-Tree索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hash索引"><span class="post-toc-text">Hash索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#全文索引-1"><span class="post-toc-text">全文索引</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引的优点"><span class="post-toc-text">索引的优点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#高性能的索引策略"><span class="post-toc-text">高性能的索引策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引顺序"><span class="post-toc-text">组合索引顺序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#覆盖索引"><span class="post-toc-text">覆盖索引</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -204,14 +205,53 @@
 <p>综上所述，用B-Tree作为索引结构效率是非常高的。</p>
 <p>红黑树往往出现由于树的深度过大而造成磁盘IO读写过于频繁，进而导致效率低下的情况。由于逻辑上很近的结点（父子结点）物理上可能离得很远，无法利用局部性原理。</p>
 <h3 id="索引结构-1"><a href="#索引结构-1" class="headerlink" title="索引结构"></a>索引结构</h3><h4 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h4><p>B-树和B+树最重要的一个区别就是B+树只有叶节点存放数据，其余节点用来索引，而B-树是每个索引节点都会有Data域。这就决定了B+树更适合用来存储外部数据，也就是所谓的磁盘数据。从Mysql（Inoodb）的角度来看，B+树是用来充当索引的，一般来说索引非常大，尤其是关系性数据库这种数据量大的索引能达到亿级别，所以为了减少内存的占用，索引也会被存储在磁盘上。</p>
-<p>MyISAM引擎使用B+Tree作为索引结构，叶结点的data域存放的是数据记录的地址。</p>
-<figure class="image-bubble">
+<p>MyISAM引擎使用B+Tree作为索引结构，叶结点的data域存放的是数据记录的地址。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b%2B(1).png" alt="Alt text" title="">
+                    <img src="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b%2B(1).png" alt="MyISAM索引" title="">
                 </div>
-                <div class="image-caption">Alt text</div>
-            </figure>
+                <div class="image-caption">MyISAM索引</div>
+            </figure><br>这里设表一共有三列，假设我们以Col1为主键，则上图是一个MyISAM表的主索引（Primary key）示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。在MyISAM中，主索引和辅助索引（Secondary key）在结构上没有任何区别，只是主索引要求key是唯一的，而辅助索引的key可以重复。<br>MyISAM的索引方式也叫做“非聚集”的；</p>
+<p>InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。<br>第一个重大区别是InnoDB的数据文件本身就是索引文件。MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶结点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b2.png" alt="InnoDB索引" title="">
+                </div>
+                <div class="image-caption">InnoDB索引</div>
+            </figure><br>因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有）；<br>这种索引叫做聚集索引；</p>
+<p>InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。<br>聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录。</p>
+<p>不同存储引擎的索引实现方式对于正确使用和优化索引都非常有帮助，例如知道了InnoDB的索引实现后，就很容易明白为什么不建议使用过长的字段作为主键，因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大。再例如，用非单调的字段作为主键在InnoDB中不是个好主意，因为InnoDB数据文件本身是一颗B+Tree，非单调的主键会造成在插入新记录时数据文件为了维持B+Tree的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择。</p>
+<p><strong>B-Tree索引的限制：</strong>  </p>
+<ul>
+<li>如果不是按照索引的最左列开始查找，则无法使用索引；</li>
+<li>不能跳过索引中列；</li>
+<li>如果查询中有某个列的范围查询，则其右边所有列都无法使用索引优化查找</li>
+</ul>
+<h4 id="Hash索引"><a href="#Hash索引" class="headerlink" title="Hash索引"></a>Hash索引</h4><p>所谓Hash索引，当我们要给某张表某列增加索引时，将这张表的这一列进行哈希算法计算，得到哈希值，排序在哈希数组上。所以Hash索引可以一次定位，其效率很高。<br>缺点：  </p>
+<ul>
+<li>因为Hash索引比较的是经过Hash计算的值，所以只能进行等式比较，不能用于范围查询；</li>
+<li>每次都要全表扫描；</li>
+<li>哈希索引也没办法利用索引完成排序；</li>
+</ul>
+<h4 id="全文索引-1"><a href="#全文索引-1" class="headerlink" title="全文索引"></a>全文索引</h4><p>全文索引是一种特殊类型的索引，它查找的是文本中的关键字，而不是直接比较索引中的值。</p>
+<h2 id="索引的优点"><a href="#索引的优点" class="headerlink" title="索引的优点"></a>索引的优点</h2><p>索引可以让服务器快速定位到表的指定位置，但是这并不是索引的唯一作用，到目前为止可以看到，根据创建索引的数据结构不同，索引也有一些其他作用。<br>最常见的B-Tree索引，按照顺序存储数据，所以MySQL可以用来做order by和group by操作。总的来说，索引有如下三个优点：</p>
+<ol>
+<li>索引大大减少了服务器需要扫描的数据量；</li>
+<li>索引可以帮助服务器避免排序和临时表；</li>
+<li>所以可以将随机I/O变为顺序I/O。</li>
+</ol>
+<h2 id="高性能的索引策略"><a href="#高性能的索引策略" class="headerlink" title="高性能的索引策略"></a>高性能的索引策略</h2><p>索引列不能是表达式的一部分；<br>MySQL能在索引中做最左前缀匹配的LIKE比较，因为该操作可以转换成简单的比较操作，但是不能匹配以通配符开头的like操作。  </p>
+<p>索引的选择性是指，不重复的索引值和数据表的记录总数的比值，索引的选择性越高，则查询效率越高；</p>
+<p>前缀索引是一种能使索引更小、更快的有效办法，但另一方面也有其缺点：MySQL无法使用前缀索引做order by和group by，也无法使用前缀索引做覆盖扫描。</p>
+<h3 id="组合索引顺序"><a href="#组合索引顺序" class="headerlink" title="组合索引顺序"></a>组合索引顺序</h3><p>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列，等等。所以，索引可以按照升序或者降序进行扫描，以满足精确符合列顺序的order by，group by和distinct等子句的查询需求。</p>
+<p>当不考虑排序和分组时，将选择性最高的列放在索引前面通常是很好的；</p>
+<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>如果一个索引包含了所有需要查询的字段的值，则称为覆盖索引。  </p>
+<p>覆盖索引的好处：</p>
+<ul>
+<li>索引条目远远少于数据行大小，所以如果只需要读取索引，那么MySQL就会极大地减少数据访问量。这对缓存的负载非常重要，因为这种情况下响应时间大部分花在数据拷贝上。</li>
+<li>因为索引是按照列值顺序存储的，所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</li>
+</ul>
+<p>覆盖索引必须要存储索引列的值，所以MySQL只能使用B-Tree索引做覆盖索引。</p>
 
         </div>
 
@@ -220,7 +260,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-24T13:06:09.913Z" itemprop="dateUpdated">2018-09-24 21:06:09</time>
+    最后更新时间：<time datetime="2018-09-24T14:13:56.305Z" itemprop="dateUpdated">2018-09-24 22:13:56</time>
 </span><br>
 
 
@@ -231,7 +271,7 @@
     
     <footer>
         <a href="https://github.com/zxw982920207/zxw982920207.github.io">
-            <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" alt="周学武">
+            <img src="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" alt="周学武">
             周学武
         </a>
     </footer>
@@ -256,7 +296,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL索引/&title=《MySQL索引》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL索引/&title=《MySQL索引》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -412,7 +452,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL索引/&title=《MySQL索引》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL索引/&title=《MySQL索引》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
