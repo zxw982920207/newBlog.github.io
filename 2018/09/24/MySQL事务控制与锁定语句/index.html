@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="http://sharvy.top/2018/09/24/MySQL事务控制与锁定语句/">
+    
+    
+    <title>MySQL事务控制和锁定语句 | 我的博客 | 彩虹下的人不会迷失方向！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="MySQL,Lock,Session">
+    <meta name="description" content="事务控制事务就是一组原子性的SQL查询，或者说一个独立的工作单元；主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 事务的特点 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务； 事务处理可以用来维护数据库的完整性，保证成批的">
+<meta name="keywords" content="MySQL,Lock,Session">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL事务控制和锁定语句">
+<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="事务控制事务就是一组原子性的SQL查询，或者说一个独立的工作单元；主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 事务的特点 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务； 事务处理可以用来维护数据库的完整性，保证成批的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-24T08:10:21.756Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL事务控制和锁定语句">
+<meta name="twitter:description" content="事务控制事务就是一组原子性的SQL查询，或者说一个独立的工作单元；主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 事务的特点 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务； 事务处理可以用来维护数据库的完整性，保证成批的">
+    
+        <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">周学武</h5>
+          <a href="mailto:xuewu982920207@qq.com" title="xuewu982920207@qq.com" class="mail">xuewu982920207@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zxw982920207" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aboutme"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MySQL事务控制和锁定语句</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MySQL事务控制和锁定语句</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-24
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务控制"><span class="post-toc-text">事务控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的特点"><span class="post-toc-text">事务的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隔离级别"><span class="post-toc-text">隔离级别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的经典例子"><span class="post-toc-text">事务的经典例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL中的锁机制"><span class="post-toc-text">MySQL中的锁机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两段锁"><span class="post-toc-text">两段锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#死锁"><span class="post-toc-text">死锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL表级锁的锁模式（MyISAM"><span class="post-toc-text">MySQL表级锁的锁模式（MyISAM)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB锁问题"><span class="post-toc-text">InnoDB锁问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#InnoDB实现了以下两种类型的行锁。"><span class="post-toc-text">InnoDB实现了以下两种类型的行锁。</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么时候使用表锁"><span class="post-toc-text">什么时候使用表锁</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MVCC的基本原理（乐观锁）-多版本并发控制"><span class="post-toc-text">MVCC的基本原理（乐观锁）  多版本并发控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB存储引擎MVCC的实现策略："><span class="post-toc-text">InnoDB存储引擎MVCC的实现策略：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-MySQL事务控制与锁定语句"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MySQL事务控制和锁定语句</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-24 00:00:00" datetime="2018-09-23T16:00:00.000Z"  itemprop="datePublished">2018-09-24</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="事务控制"><a href="#事务控制" class="headerlink" title="事务控制"></a>事务控制</h2><p>事务就是一组原子性的SQL查询，或者说一个独立的工作单元；<br>主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</p>
+<h3 id="事务的特点"><a href="#事务的特点" class="headerlink" title="事务的特点"></a>事务的特点</h3><ul>
+<li>在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务；</li>
+<li>事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行；</li>
+<li>事务用来管理 insert,update,delete 语句；  </li>
+</ul>
+<p>一般来说，事务是必须满足4个条件（ACID）：原子性（Atomicity，或称不可分割性）、一致性（Consistency）、隔离性（Isolation，又称独立性）、持久性（Durability）。</p>
+<ul>
+<li>原子性<br>一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样；</li>
+<li>一致性<br>在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作；</li>
+<li>隔离性<br>数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）；</li>
+<li>持久性<br>事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</li>
+</ul>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><p>当多个线程都开启事务操作数据库中数据时，数据库系统要能进行隔离操作，以保证各个线程获取数据的准确性。</p>
+<p>如果没有隔离，会发生的几种问题：</p>
+<ul>
+<li>脏读（Dirty Read）：一个事务处理过程里读取了另一个未提交的事务中的数据；</li>
+<li>不可重复读（NonRepeatable Read）：对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询的间隔期间，另外一个事务修改并提交了该数据；</li>
+<li>幻读（Phantom Read）：在一个事务中读取到了别的事务插入的数据，导致前后不一致；</li>
+</ul>
+<p>不可重复读侧重于修改，幻读侧重于新增或删除。解决不可重复读的问题只需锁住满足条件的行，解决幻读需要锁表</p>
+<p>隔离级别</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">未提交读</td>
+<td style="text-align:center">可能</td>
+<td style="text-align:center">可能</td>
+<td style="text-align:center">可能</td>
+</tr>
+<tr>
+<td style="text-align:center">已提交读</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">可能</td>
+<td style="text-align:center">可能</td>
+</tr>
+<tr>
+<td style="text-align:center">可重复读</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">可能</td>
+</tr>
+<tr>
+<td style="text-align:center">可串行化</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">不可能</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Read Uncommitted（读取未提交内容）<br>在该隔离级别，所有事务都可以看到其他未提交事务的执行结果。这个隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少。读取未提交的数据，也被称之为脏读（Dirty Read）。</p>
+</li>
+<li><p>Read Committed（读取提交内容）<br>这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）。它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变。这种隔离级别也支持所谓的不可重复读（Nonrepeatable Read），因为同一事务的其他实例在该实例处理其间可能会有新的commit，所以同一select可能返回不同结果。</p>
+</li>
+<li><p>Repeatable Read（可重读）<br>这是MySQL的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。不过理论上，这会导致另一个棘手的问题：幻读 （Phantom Read）。简单的说，幻读指当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影”行。</p>
+</li>
+<li><p>Serializable（可串行化）<br>这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。它是在每个读的数据行上加上共享锁。在这个级别，可能导致大量的超时现象和锁竞争。</p>
+</li>
+</ul>
+<h3 id="事务的经典例子"><a href="#事务的经典例子" class="headerlink" title="事务的经典例子"></a>事务的经典例子</h3><p>银行应用是解释事务必要性的一个经典例子。假设银行的数据库有两张表：支票（checking）表和储蓄（savings）表，现在要从用户Jane的支票账户转移200美元到她的储蓄账户，那么需要三个步骤</p>
+<ol>
+<li>检查支票账户的余额高于200美元；  </li>
+<li>从支票账户余额中减去200美元；</li>
+<li>在储蓄账户余额中增加200美元；</li>
+</ol>
+<p>上述三个步骤的操作必须打包在一个事务中，任何一个步骤失败，则必须回滚所有的步骤。则SQL为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">select balance from checking where id=&quot;Jane&quot;;</span><br><span class="line">update checking set balance = balance-200 where id = &quot;Jane&quot;;</span><br><span class="line">update savings set balance = balance+200 where id = &quot;Jane&quot;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure></p>
+<h2 id="MySQL中的锁机制"><a href="#MySQL中的锁机制" class="headerlink" title="MySQL中的锁机制"></a>MySQL中的锁机制</h2><p>数据库为了维护ACID，尤其是一致性和隔离性，一般使用加锁的方式。同时由于数据库是个高并发的应用，同一时间有大量的并发访问，如果加锁过度，会极大的降低并发处理的能力。所以对于加锁的处理，是数据库对于事务处理的精髓所在。</p>
+<h3 id="两段锁"><a href="#两段锁" class="headerlink" title="两段锁"></a>两段锁</h3><p>两段锁协议将事务分成两个阶段：加锁阶段和解锁阶段  </p>
+<ul>
+<li>加锁阶段：在该阶段可以进行加锁操作。读数据前需要申请获取S锁（共享锁：其他事务可以继续加共享锁，但不能加排他锁）；写数据前需要申请获取X锁（排他锁：其他事务不能获取任何锁）。加锁不成功，则事务进入等待状态，直到加锁成功才继续执行。</li>
+<li>解锁阶段：当事务释放了一个封锁以后，事务进入解锁阶段，在该阶段只能进行解锁操作不能进行加锁操作。</li>
+</ul>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>所谓死锁是指两个或多个事务，各自占有对方的期望获得的资源，形成的循环等待，彼此无法继续执行的一种状态。当多个事务试图以不同的顺序锁定资源时，就可能会产生死锁。多个事务同时锁定同一个资源时，也会产生死锁。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">事务1</span><br><span class="line">start transaction;</span><br><span class="line">update price set close = 45.5 where id = 4 and date =&apos;2002-05-01&apos;;</span><br><span class="line">update price set close = 19.8 where id = 3 and date =&apos;2002-05-02&apos;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">事务2</span><br><span class="line">start transaction;</span><br><span class="line">update price set high = 20.12 where id = 3 and date =&apos;2002-05-02&apos;;</span><br><span class="line">update price set high = 47.20 where id = 4 and date =&apos;2002-05-01&apos;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+<p>如果上述两个事务都执行了第一条update语句，更新了一行数据，同时也锁定了该行数据，接着每个事务都尝试去执行第二条语句，却发现该行被锁定，然后都等待对方释放锁，同时又持有对方需要的锁，则陷入死循环。</p>
+<p>为了解决死锁，数据库系统实现了各种死锁检测和死锁超时机制。越复杂的系统，如InnoDB存储引擎，越能检测到死锁的循环依赖，并返回一个错误。另外还有一种方式，就是当查询时达到锁等待超时的设定后放弃锁请求。InnoDB目前处理死锁的方法时，将持有最少行级锁的事务进行回滚。</p>
+<p>死锁的产生有双重原因：有些是因为真正的数据冲突，有些则是因为存储引擎的实现方式；</p>
+<h3 id="MySQL表级锁的锁模式（MyISAM"><a href="#MySQL表级锁的锁模式（MyISAM" class="headerlink" title="MySQL表级锁的锁模式（MyISAM)"></a>MySQL表级锁的锁模式（MyISAM)</h3><p>MySQL表级锁有两种模式：表共享锁（Table Read Lock）和表独占写锁（Table Write Lock）。  </p>
+<ul>
+<li>对MyISAM的读操作，不会阻塞其他用户对同一表请求，但会阻塞对同一表的写请求；</li>
+<li>对MyISAM的写操作，则会阻塞其他用户对同一表的读和写操作；</li>
+<li>MyISAM表的读操作和写操作之间，以及写操作之间是串行的。</li>
+</ul>
+<p>当一个线程获得对一个表的写锁后，只有持有锁线程可以对表进行更新操作。其他线程的读、写操作都会等待，直到锁被释放为止。 </p>
+<p>MyISAM在执行查询语句（SELECT）前，会自动给涉及的所有表加读锁，在执行更新操作（UPDATE、DELETE、INSERT等）前，会自动给涉及的表加写锁，这个过程并不需要用户干预，因此用户一般不需要直接用LOCK TABLE命令给MyISAM表显式加锁。</p>
+<h3 id="InnoDB锁问题"><a href="#InnoDB锁问题" class="headerlink" title="InnoDB锁问题"></a>InnoDB锁问题</h3><p>InnoDB与MyISAM的最大不同有两点：一是支持事务（TRANSACTION）；二是采用了行级锁。  </p>
+<p>可以通过检查InnoDB_row_lock状态变量来分析系统上的行锁的争夺情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &apos;innodb_row_lock%&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>如果发现锁争用比较严重，如InnoDB_row_lock_waits和InnoDB_row_lock_time_avg的值比较高，还可以通过设置InnoDB Monitors来进一步观察发生锁冲突的表、数据行等，并分析锁争用的原因。</p>
+<h4 id="InnoDB实现了以下两种类型的行锁。"><a href="#InnoDB实现了以下两种类型的行锁。" class="headerlink" title="InnoDB实现了以下两种类型的行锁。"></a>InnoDB实现了以下两种类型的行锁。</h4><ul>
+<li>共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。</li>
+<li>排他锁（X)：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。  </li>
+</ul>
+<p>另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。</p>
+<ul>
+<li>意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。</li>
+<li>意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。</li>
+</ul>
+<h4 id="什么时候使用表锁"><a href="#什么时候使用表锁" class="headerlink" title="什么时候使用表锁"></a>什么时候使用表锁</h4><p>对于InnoDB表，在绝大部分情况下都应该使用行级锁，因为事务和行锁往往是我们之所以选择InnoDB表的理由。但在个另特殊事务中，也可以考虑使用表级锁。</p>
+<ul>
+<li>第一种情况是：事务需要更新大部分或全部数据，表又比较大，如果使用默认的行锁，不仅这个事务执行效率低，而且可能造成其他事务长时间锁等待和锁冲突，这种情况下可以考虑使用表锁来提高该事务的执行速度。</li>
+<li>第二种情况是：事务涉及多个表，比较复杂，很可能引起死锁，造成大量事务回滚。这种情况也可以考虑一次性锁定事务涉及的表，从而避免死锁、减少数据库因事务回滚带来的开销。</li>
+</ul>
+<p>对于InnoDB表，主要有以下几点</p>
+<ol>
+<li>InnoDB的行锁是基于索引实现的，如果不通过索引访问数据，InnoDB会使用表锁。</li>
+<li>InnoDB间隙锁机制，以及InnoDB使用间隙锁的原因。<br>当我们用范围条件而不是相等条件检索数据，并请求共享或排它锁时，innodb会给符合条件的已有数据记录的索引项加锁；对于键值在条件范围内但并不存在的记录就叫做”间隙锁” 。<br>使用间隙锁的目的是为了防止幻读，以满足相关的隔离级别。很明显，在使用范围条件的检索记录时， 会阻塞符合条件范围内键值的并发插入，往往造成严重的锁等待。在实现业务中尽量使用相等条件来检索数据。</li>
+<li>在不同的隔离级别下，InnoDB的锁机制和一致性读策略不同。<br>不同的隔离级别下，innodb处理sql 时采用的一致性读策略和需要的锁是不同的，同时，数据恢复和复制机制的特点，也对一些sql的一致性读策略和锁策略有很大影响。对于许多sql, 隔离级别越高，innodb给记录集的锁就越严格(龙其是使用范围条件的时候)，产生的锁冲突的可能性也就越高，对并发性事务处理性能的影响也就越大。因此，在应用中，应该尽量使用较低的隔离级别，减少锁争用。</li>
+<li>MySQL的恢复和复制对InnoDB锁机制和一致性读策略也有较大影响。<br>mysql 通过binlog文件对增删除改等更新数据的sql语句，实现数据库的恢复和主从复制。mysql的恢复机制(复制其实就是在slave mysql不断做基于binglog的恢复)特点有如下:<br>　　(1) mysql 的恢复是sql语句级的,也就是重新执行binlog中的sql语句， oracle数据库则是基于数据库文件块的。<br>　　(2) mysql 的binlog是按照事务提交的先后顺序记录的，恢复也是按这个顺序进行的。这也与oracle不同，oracle是按照系统更新号(SCN)来恢复数据的。  </li>
+<li>锁冲突甚至死锁很难完全避免。</li>
+</ol>
+<p>在了解InnoDB的锁特性后，用户可以通过设计和SQL调整等措施减少锁冲突和死锁，包括：</p>
+<ul>
+<li>尽量使用较低的隔离级别</li>
+<li>精心设计索引，并尽量使用索引访问数据，使加锁更精确，从而减少锁冲突的机会。</li>
+<li>选择合理的事务大小，小事务发生锁冲突的几率也更小。</li>
+<li>给记录集显示加锁时，最好一次性请求足够级别的锁。比如要修改数据的话，最好直接申请排他锁，而不是先申请共享锁，修改时再请求排他锁，这样容易产生死锁。</li>
+<li>不同的程序访问一组表时，应尽量约定以相同的顺序访问各表，对一个表而言，尽可能以固定的顺序存取表中的行。这样可以大减少死锁的机会。</li>
+<li>尽量用相等条件访问数据，这样可以避免间隙锁对并发插入的影响。</li>
+<li>不要申请超过实际需要的锁级别；除非必须，查询时不要显示加锁。</li>
+<li>对于一些特定的事务，可以使用表锁来提高处理速度或减少死锁的可能。</li>
+</ul>
+<h2 id="MVCC的基本原理（乐观锁）-多版本并发控制"><a href="#MVCC的基本原理（乐观锁）-多版本并发控制" class="headerlink" title="MVCC的基本原理（乐观锁）  多版本并发控制"></a>MVCC的基本原理（乐观锁）  多版本并发控制</h2><p>MVCC可以认为它是行级锁的一个变种，但是它在很多情况下避免了加锁操作，因此开销更低。实现了非阻塞的读操作，写操作也只锁定必要的行。</p>
+<p>MVCC的实现，通过保存数据在某个时间点的快照来实现的。这意味着一个事务无论执行多长时间，在同一个事务里看到数据都是一致的。根据事务开始的时间不同，每个事务对同一张表同一个时刻看到的数据可能不同。</p>
+<p>特征：</p>
+<ul>
+<li>每行数据都存在一个版本，每次数据更新时都更新该版本。</li>
+<li>修改时Copy出当前版本随意修改，各个事务之间无干扰。</li>
+<li>保存时比较版本号，如果成功（commit），则覆盖原记录；失败则放弃copy（rollback）</li>
+</ul>
+<h3 id="InnoDB存储引擎MVCC的实现策略："><a href="#InnoDB存储引擎MVCC的实现策略：" class="headerlink" title="InnoDB存储引擎MVCC的实现策略："></a>InnoDB存储引擎MVCC的实现策略：</h3><p>通过在每一行数据后面保存两个隐藏的列实现：当前行创建时的版本号和删除时的版本号（可能为空）。每开始一个新的事务，系统版本号都会自动递增。事务开始时刻的系统版本号会作为事务的版本号，用来和查询到的每行记录的版本号进行比较。</p>
+<ul>
+<li>Select<br>InnoDB只查找版本早于当前事务版本的数据行（也就是，行的版本号小于或等于事务的系统版本号），这样可以确保事务读取的行，要么是在事务开始前已经存在，要么是事务自身插入或者修改过的；<br>行的删除版本要么没定义，要么大于当前事务版本号，这可以确保事务读取到的行，在事务开始之前未被删除；<br>只有符合上述两个条件的记录，才能返回作为查询结果；</li>
+<li>INSERT<br>InnoDB为新插入的每一行保存当前系统版本号作为行版本号；</li>
+<li>DELETE<br>InnoDB为删除的每一行保存当前系统版本号作为行删除标识；</li>
+<li>UPDATE<br>InnoDB为插入一行新纪录，保存当前系统版本号作为行版本号，同时保存当前系统版本号到原来的行作为行删除标识；</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-09-24T08:10:21.756Z" itemprop="dateUpdated">2018-09-24 16:10:21</time>
+</span><br>
+
+
+        
+        转载请注明出处：<a href="/2018/09/24/MySQL事务控制与锁定语句/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://github.com/zxw982920207/zxw982920207.github.io">
+            <img src="http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" alt="周学武">
+            周学武
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lock/">Lock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Session/">Session</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&title=《MySQL事务控制和锁定语句》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&title=《MySQL事务控制和锁定语句》 — 我的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL事务控制和锁定语句》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/09/23/MySQL基础/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MySQL基础</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="http://pccmxww5q.bkt.clouddn.com/weixinpay.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="http://pccmxww5q.bkt.clouddn.com/weixinpay.png" data-alipay="http://pccmxww5q.bkt.clouddn.com/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>周学武 &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&title=《MySQL事务控制和锁定语句》 — 我的博客&pic=http://pccmxww5q.bkt.clouddn.com/panda_f.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&title=《MySQL事务控制和锁定语句》 — 我的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL事务控制和锁定语句》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/24/MySQL事务控制与锁定语句/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'zhouxuewu's blog';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'welcome';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
