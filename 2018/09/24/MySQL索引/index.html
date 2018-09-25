@@ -33,7 +33,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b%2B(1).png">
 <meta property="og:image" content="https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/b2.png">
-<meta property="og:updated_time" content="2018-09-24T14:13:56.305Z">
+<meta property="og:updated_time" content="2018-09-25T03:06:29.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引">
 <meta name="twitter:description" content="MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。  优点：MySQL索引的建立对于MySQL的高效运行是很重要的，大大减轻了服务器需要扫描的数据量，从而提高了数据的检索速度；帮助服务器避免排序和临时表；可以将随机I/O变为顺序I/O 缺点：虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，">
@@ -163,7 +163,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引分类"><span class="post-toc-text">索引分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通索引"><span class="post-toc-text">普通索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#唯一索引"><span class="post-toc-text">唯一索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主键索引"><span class="post-toc-text">主键索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全文索引"><span class="post-toc-text">全文索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引"><span class="post-toc-text">组合索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引结构"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从使用磁盘I-O次数评价索引结构的优劣性"><span class="post-toc-text">从使用磁盘I/O次数评价索引结构的优劣性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#索引结构-1"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#B-Tree索引"><span class="post-toc-text">B-Tree索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hash索引"><span class="post-toc-text">Hash索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#全文索引-1"><span class="post-toc-text">全文索引</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引的优点"><span class="post-toc-text">索引的优点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#高性能的索引策略"><span class="post-toc-text">高性能的索引策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引顺序"><span class="post-toc-text">组合索引顺序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#覆盖索引"><span class="post-toc-text">覆盖索引</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引分类"><span class="post-toc-text">索引分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#普通索引"><span class="post-toc-text">普通索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#唯一索引"><span class="post-toc-text">唯一索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#主键索引"><span class="post-toc-text">主键索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#全文索引"><span class="post-toc-text">全文索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引"><span class="post-toc-text">组合索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引结构"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从使用磁盘I-O次数评价索引结构的优劣性"><span class="post-toc-text">从使用磁盘I/O次数评价索引结构的优劣性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#索引结构-1"><span class="post-toc-text">索引结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#B-Tree索引"><span class="post-toc-text">B-Tree索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Hash索引"><span class="post-toc-text">Hash索引</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#全文索引-1"><span class="post-toc-text">全文索引</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引的优点"><span class="post-toc-text">索引的优点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#高性能的索引策略"><span class="post-toc-text">高性能的索引策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组合索引顺序"><span class="post-toc-text">组合索引顺序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#覆盖索引"><span class="post-toc-text">覆盖索引</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计索引的原则"><span class="post-toc-text">设计索引的原则</span></a></li></ol>
         </nav>
     </aside>
 
@@ -245,13 +245,27 @@
 <p>前缀索引是一种能使索引更小、更快的有效办法，但另一方面也有其缺点：MySQL无法使用前缀索引做order by和group by，也无法使用前缀索引做覆盖扫描。</p>
 <h3 id="组合索引顺序"><a href="#组合索引顺序" class="headerlink" title="组合索引顺序"></a>组合索引顺序</h3><p>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列，等等。所以，索引可以按照升序或者降序进行扫描，以满足精确符合列顺序的order by，group by和distinct等子句的查询需求。</p>
 <p>当不考虑排序和分组时，将选择性最高的列放在索引前面通常是很好的；</p>
-<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>如果一个索引包含了所有需要查询的字段的值，则称为覆盖索引。  </p>
+<h3 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h3><p>如果一个索引包含了所有需要查询的字段的值，则称为覆盖索引。 </p>
+<p>索引覆盖查询是很快的，如果一个索引包含了查询所需要的所有列，那么存储引擎就不需要再回表查找行了，这就避免了大量的单行访问。</p>
 <p>覆盖索引的好处：</p>
 <ul>
 <li>索引条目远远少于数据行大小，所以如果只需要读取索引，那么MySQL就会极大地减少数据访问量。这对缓存的负载非常重要，因为这种情况下响应时间大部分花在数据拷贝上。</li>
 <li>因为索引是按照列值顺序存储的，所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</li>
 </ul>
 <p>覆盖索引必须要存储索引列的值，所以MySQL只能使用B-Tree索引做覆盖索引。</p>
+<h2 id="设计索引的原则"><a href="#设计索引的原则" class="headerlink" title="设计索引的原则"></a>设计索引的原则</h2><ol>
+<li>搜索的索引列，不一定是所要选择的列。换句话说，最适合索引的列是出现在where子句中的列，或连接子句中指定的列，而不是select关键字后的选择列；</li>
+<li>使用唯一索引。考虑某列中值的分布，对于唯一索引效果最好，而具有多个重复值的列，其索引效果最差。例如，存放年龄的列具有不同值，很容易区分各行。而记录性别的列，只含有M和F。则此列进行索引没多大用处（不管搜索哪个值，都会得出大约一半的行）；</li>
+<li>使用短索引。如果对串列进行索引，应该指定一个前缀长度，只要有可能就应该这样做，这样进行索引，能够节省大量索引空间，也可能会使查询更快。较小的索引涉及的磁盘I/O较少，较短的值比较起来更快。更为重要的是，对于较短的键值，索引高速缓存中的快能容纳更多的键值，因此MySQL也可以在内存中容纳更多的值，这增加了找到行而不用读取索引中较多块的可能性。</li>
+<li>利用最左前缀。在创建一个n列的索引时，实际是创建了MySQL可利用的n个索引。多列索引可起到几个索引的作用，因为可利用索引中最左边的列集来匹配行。</li>
+<li>不要过度索引。每个额外的索引都要占用额外的磁盘空间，并降低写操作的性能。在修改表的内容时，索引必须进行更新，有时候可能需要重构，因此索引越多，所花的时间越长。</li>
+</ol>
+<p>编写查询语句时：</p>
+<ul>
+<li>应尽可能选择合适的索引以避免单行查找；</li>
+<li>尽可能地使用数据原生顺序从而避免额外的排序操作；</li>
+<li>尽可能使用索引覆盖查询</li>
+</ul>
 
         </div>
 
@@ -260,7 +274,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-24T14:13:56.305Z" itemprop="dateUpdated">2018-09-24 22:13:56</time>
+    最后更新时间：<time datetime="2018-09-25T03:06:29.926Z" itemprop="dateUpdated">2018-09-25 11:06:29</time>
 </span><br>
 
 
