@@ -13,28 +13,28 @@
     
     
     
-    <link rel="canonical" href="http://sharvy.top/2018/09/26/MySQL高级特性/">
+    <link rel="canonical" href="http://sharvy.top/2018/09/26/volatile实现及其原理/">
     
     
-    <title>MySQL高级特性 | 我的博客 | 彩虹下的人不会迷失方向！</title>
+    <title>volatile实现及其原理 | 我的博客 | 彩虹下的人不会迷失方向！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="MySQL,高级特性">
-    <meta name="description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
-<meta name="keywords" content="MySQL,高级特性">
+    <meta name="keywords" content="volatile，并发">
+    <meta name="description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
+<meta name="keywords" content="volatile，并发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL高级特性">
-<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/index.html">
+<meta property="og:title" content="volatile实现及其原理">
+<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
+<meta property="og:description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T08:17:52.755Z">
+<meta property="og:updated_time" content="2018-09-26T14:12:20.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL高级特性">
-<meta name="twitter:description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
+<meta name="twitter:title" content="volatile实现及其原理">
+<meta name="twitter:description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
     
         <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
     
@@ -115,7 +115,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">MySQL高级特性</div>
+        <div class="flex-col header-title ellipsis">volatile实现及其原理</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,7 +137,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">MySQL高级特性</h1>
+        <h1 class="title">volatile实现及其原理</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-09-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
@@ -160,16 +160,16 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分区表"><span class="post-toc-text">分区表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#视图"><span class="post-toc-text">视图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存储过程和函数"><span class="post-toc-text">存储过程和函数</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#volatile原理"><span class="post-toc-text">volatile原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可见性"><span class="post-toc-text">可见性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指令重排"><span class="post-toc-text">指令重排</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#volatile使用场景"><span class="post-toc-text">volatile使用场景</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-MySQL高级特性"
+<article id="post-volatile实现及其原理"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">MySQL高级特性</h1>
+        <h1 class="post-card-title">volatile实现及其原理</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-09-26 00:00:00" datetime="2018-09-25T16:00:00.000Z"  itemprop="datePublished">2018-09-26</time>
 
@@ -184,18 +184,17 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><p>在下列场景中，分区可以起到非常大的作用：</p>
+            <h2 id="volatile原理"><a href="#volatile原理" class="headerlink" title="volatile原理"></a>volatile原理</h2><p>观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。<br>lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：</p>
 <ul>
-<li>表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据；</li>
-<li>分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作；</li>
-<li>分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备；</li>
-<li>可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥访问；</li>
-<li>如果需要，还可以备份和恢复独立的分区，这在非常大的数据集的场景下效果非常好；</li>
+<li>它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部完成；</li>
+<li>Lock前缀指令会引起处理器缓存回写到内存；</li>
+<li>一个处理器的缓存回写会导致其他处理器的缓存无效。</li>
 </ul>
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图本身是一个虚拟表，不存放任何数据。在使用视图时，其返回数据是MySQL从其他表中生成的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">视图的创建</span><br><span class="line">create view viewname as ...(select语句)</span><br><span class="line">访问视图</span><br><span class="line">select colname from viewname;</span><br><span class="line">删除视图</span><br><span class="line">drop view viewname;</span><br></pre></td></tr></table></figure></p>
-<h2 id="存储过程和函数"><a href="#存储过程和函数" class="headerlink" title="存储过程和函数"></a>存储过程和函数</h2><p>存储过程和函数是事先经过编译并存储在数据库中的一段SQL语句的集合，调用存储过程和函数可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是很有好处的。</p>
-<p>存储过程和函数的区别在于，函数必须有返回值，而存储过程没有，存储过程的参数可以使用IN、OUT、INOUT类型，而函数只能使用IN类型。如果有函数从其他类型的数据库迁移到MySQL，那么就可能因此需要将函数改造成存储过程。IN参数是传入，OUT参数传出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建存储过程</span><br><span class="line">create procedure name()</span><br><span class="line">begin</span><br><span class="line">  ...  SQL语句</span><br><span class="line">end;</span><br></pre></td></tr></table></figure></p>
-<p>存储过程和函数中可以使用变量，通过declare可以定义一个局部变量，该局部变量的作用范围只能在begin…end块中。变量的定义必须写在复合语句的开头，并且在任何其他语句的前面。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>volatile是变量修饰符，其修饰的变量具有可见性。<br><strong>可见性</strong> 也就是说一旦某个线程修改了该被volatile修饰的变量，它会保证修改的值会立即被更新到主存，当有其他线程需要读取时，可以立即获取修改之后的值。<br>在Java中为了加快程序的运行效率，对一些变量的操作通常是在该线程的寄存器或是CPU缓存上进行的，之后才会同步到主存中，而加了volatile修饰符的变量则是直接读写主存。</p>
+<p>可见性实现：<br>线程本身并不直接与主内存进行数据的交互，而是通过线程的工作内存来完成相应的操作。这也是导致线程间数据不可见的本质原因。因此要实现volatile变量的可见性，直接从这方面入手即可。对volatile变量的写操作与普通变量的主要区别有两点：<br>（1）修改volatile变量时会强制将修改后的值刷新到主内存中。<br>（2）修改volatile变量后会导致其他线程工作内存中对应的变量值失效。因此，再读取该变量值的时候就需要重新从读取主内存中的值。<br>通过这两个操作，就可以解决volatile变量的可见性问题。 </p>
+<h3 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h3><p>volatile可以禁止进行指令重排。<br><strong>指令重排</strong>是指处理器为了提高程序运行效率，可能会对输入代码进行优化，它不保证各个语句的执行顺序同代码中的顺序一致，但是它会保证程序最终执行结果和代码顺序执行的结果是一致的。指令重排序不会影响单个线程的执行，但是会影响到线程并发执行的正确性。<br>先要了解对象的构造过程，实例化一个对象其实可以分为三个步骤：<br>　　（1）分配内存空间；<br>　　（2）初始化对象；<br>　　（3）将内存空间的地址赋值给对应的引用。<br>但是由于操作系统可以对指令进行重排序，所以上面的过程也可能会变成如下过程：<br>　　（1）分配内存空间；<br>　　（2）将内存空间的地址赋值给对应的引用；<br>　　（3）初始化对象。<br>如果是这个流程，多线程环境下就可能将一个未初始化的对象引用暴露出来，从而导致不可预料的结果。因此，为了防止这个过程的重排序，我们需要将变量设置为volatile类型的变量。  </p>
+<p>从而我们可以看出volatile虽然具有可见性但是并不能保证原子性。</p>
+<h3 id="volatile使用场景"><a href="#volatile使用场景" class="headerlink" title="volatile使用场景"></a>volatile使用场景</h3><p>通常来说，使用volatile必须具备以下2个条件：<br>1） 对变量的写操作不依赖于当前值；<br>2） 该变量没有包含在具有其他变量的不变式中；<br>也就是说，保证操作是原子性操作，才能保证使用volatile关键字的程序在并发时能够正确执行。</p>
 
         </div>
 
@@ -204,12 +203,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-26T08:17:52.755Z" itemprop="dateUpdated">2018-09-26 16:17:52</time>
+    最后更新时间：<time datetime="2018-09-26T14:12:20.283Z" itemprop="dateUpdated">2018-09-26 22:12:20</time>
 </span><br>
 
 
         
-        转载请注明出处：<a href="/2018/09/26/MySQL高级特性/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/</a>
+        转载请注明出处：<a href="/2018/09/26/volatile实现及其原理/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/</a>
         
     </div>
     
@@ -230,7 +229,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高级特性/">高级特性</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile，并发/">volatile，并发</a></li></ul>
 
 
             
@@ -240,7 +239,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&title=《volatile实现及其原理》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -250,22 +249,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&title=《volatile实现及其原理》 — 我的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL高级特性》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《volatile实现及其原理》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -285,14 +284,21 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/09/26/MySQL高级特性/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MySQL高级特性</h4>
+      </a>
+    </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/09/26/volatile实现及其原理/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/25/SQL优化/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">volatile实现及其原理</h4>
+        <h4 class="title">SQL优化</h4>
       </a>
     </div>
   
@@ -389,7 +395,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&title=《volatile实现及其原理》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -399,22 +405,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&title=《volatile实现及其原理》 — 我的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL高级特性》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《volatile实现及其原理》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -425,7 +431,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/" alt="微信分享二维码">
 </div>
 
 
