@@ -22,16 +22,16 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="volatile，并发">
+    <meta name="keywords" content="并发,volatile">
     <meta name="description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
-<meta name="keywords" content="volatile，并发">
+<meta name="keywords" content="并发,volatile">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile实现及其原理">
 <meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-26T14:12:20.283Z">
+<meta property="og:updated_time" content="2018-09-28T07:59:58.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile实现及其原理">
 <meta name="twitter:description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
@@ -203,7 +203,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-26T14:12:20.283Z" itemprop="dateUpdated">2018-09-26 22:12:20</time>
+    最后更新时间：<time datetime="2018-09-28T07:59:58.605Z" itemprop="dateUpdated">2018-09-28 15:59:58</time>
 </span><br>
 
 
@@ -229,7 +229,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile，并发/">volatile，并发</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
 
 
             
