@@ -22,9 +22,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="并发,volatile">
+    <meta name="keywords" content="volatile,并发">
     <meta name="description" content="volatile原理观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令。lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：  它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部">
-<meta name="keywords" content="并发,volatile">
+<meta name="keywords" content="volatile,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile实现及其原理">
 <meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/volatile实现及其原理/index.html">
