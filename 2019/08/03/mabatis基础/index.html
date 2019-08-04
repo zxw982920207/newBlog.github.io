@@ -23,19 +23,19 @@
     
     
     <meta name="keywords" content="mybatis">
-    <meta name="description" content="Mabatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
+    <meta name="description" content="Mybatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
 <meta name="keywords" content="mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis基础">
 <meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2019/08/03/mabatis基础/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="Mabatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
+<meta property="og:description" content="Mybatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/zxw982920207/zxw982920207.github.io/blob/master/img/mybatis%20tags.png">
-<meta property="og:updated_time" content="2019-08-04T08:43:02.512Z">
+<meta property="og:updated_time" content="2019-08-04T08:50:53.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis基础">
-<meta name="twitter:description" content="Mabatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
+<meta name="twitter:description" content="Mybatis基础 MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。 Mybatis增删改查12345678910111">
 <meta name="twitter:image" content="https://github.com/zxw982920207/zxw982920207.github.io/blob/master/img/mybatis%20tags.png">
     
         <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
@@ -162,7 +162,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mabatis基础"><span class="post-toc-text">Mabatis基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mybatis增删改查"><span class="post-toc-text">Mybatis增删改查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mybatis常用标签"><span class="post-toc-text">Mybatis常用标签</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、定义sql语句"><span class="post-toc-text">1、定义sql语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、配置Java对象属性与查询结果集中列名对应关系"><span class="post-toc-text">2、配置Java对象属性与查询结果集中列名对应关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-动态sql拼接"><span class="post-toc-text">3. 动态sql拼接</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、格式化输出"><span class="post-toc-text">4、格式化输出</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、配置关联关系"><span class="post-toc-text">5、配置关联关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、常量及其引用"><span class="post-toc-text">6、常量及其引用</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mybatis基础"><span class="post-toc-text">Mybatis基础</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mybatis增删改查"><span class="post-toc-text">Mybatis增删改查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mybatis常用标签"><span class="post-toc-text">Mybatis常用标签</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、定义sql语句"><span class="post-toc-text">1、定义sql语句</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、配置Java对象属性与查询结果集中列名对应关系"><span class="post-toc-text">2、配置Java对象属性与查询结果集中列名对应关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-动态sql拼接"><span class="post-toc-text">3. 动态sql拼接</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、格式化输出"><span class="post-toc-text">4、格式化输出</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、配置关联关系"><span class="post-toc-text">5、配置关联关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、常量及其引用"><span class="post-toc-text">6、常量及其引用</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -186,7 +186,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="Mabatis基础"><a href="#Mabatis基础" class="headerlink" title="Mabatis基础"></a>Mabatis基础</h2><hr>
+            <h2 id="Mybatis基础"><a href="#Mybatis基础" class="headerlink" title="Mybatis基础"></a>Mybatis基础</h2><hr>
 <p>MyBatis 是支持普通 SQL 查询,存储过程和高级映射的持久层框架。MyBatis 消除了几乎所有的 JDBC 代码和参数的手工设置以及结果集的检索。MyBatis 使用简单的 XML 或注解用于配置和原始映射,将接口和 Java 的 POJOs 映射成数据库中的记录, Mabatis最强的特性之一就是它的动态语句功能。</p>
 <h3 id="Mybatis增删改查"><a href="#Mybatis增删改查" class="headerlink" title="Mybatis增删改查"></a>Mybatis增删改查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;interface方法名&quot; parameterType=&quot;参数类型&quot;</span><br><span class="line">    resultType=&quot;返回值类型&quot;&gt;</span><br><span class="line">    SELECT *</span><br><span class="line">    FROM USER</span><br><span class="line">    WHERE param（关键字） = #&#123;参数名&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line"></span><br><span class="line">&lt;insert id=&quot;interface方法名&quot; parameterType=&quot;User&quot;&gt;</span><br><span class="line">    INSERT INTO USER(param1,</span><br><span class="line">    param2, param3, param4)</span><br><span class="line">    VALUES(#&#123;param1&#125;, #&#123;param2&#125;, #&#123;param3&#125;, #&#123;param4&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">&lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot;&gt;</span><br><span class="line">    UPDATE USER</span><br><span class="line">    SET</span><br><span class="line">    param1=</span><br><span class="line">    #&#123;param1&#125;,</span><br><span class="line">    param2 = #&#123;param2&#125;,</span><br><span class="line">    param3 = #&#123;param3&#125;,</span><br><span class="line">    param4 = #&#123;param4&#125;</span><br><span class="line">    WHERE</span><br><span class="line">    id =</span><br><span class="line">    #&#123;id&#125;</span><br><span class="line">&lt;/update&gt;</span><br><span class="line"></span><br><span class="line">&lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;</span><br><span class="line">    DELETE FROM USER WHERE id = #&#123;id&#125;</span><br><span class="line">&lt;/delete&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="Mybatis常用标签"><a href="#Mybatis常用标签" class="headerlink" title="Mybatis常用标签"></a>Mybatis常用标签</h3><figure class="image-bubble">
@@ -272,7 +272,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-08-04T08:43:02.512Z" itemprop="dateUpdated">2019-08-04 16:43:02</time>
+    最后更新时间：<time datetime="2019-08-04T08:50:53.198Z" itemprop="dateUpdated">2019-08-04 16:50:53</time>
 </span><br>
 
 
