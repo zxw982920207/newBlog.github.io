@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="事务控制事务就是一组原子性的SQL查询，或者说一个独立的工作单元；主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 事务的特点 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务； 事务处理可以用来维护数据库的完整性，保证成批的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-24T08:10:21.756Z">
+<meta property="og:updated_time" content="2018-09-30T12:58:20.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL事务控制和锁定语句">
 <meta name="twitter:description" content="事务控制事务就是一组原子性的SQL查询，或者说一个独立的工作单元；主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！ 事务的特点 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务； 事务处理可以用来维护数据库的完整性，保证成批的">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务控制"><span class="post-toc-text">事务控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的特点"><span class="post-toc-text">事务的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隔离级别"><span class="post-toc-text">隔离级别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的经典例子"><span class="post-toc-text">事务的经典例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL中的锁机制"><span class="post-toc-text">MySQL中的锁机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两段锁"><span class="post-toc-text">两段锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#死锁"><span class="post-toc-text">死锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL表级锁的锁模式（MyISAM"><span class="post-toc-text">MySQL表级锁的锁模式（MyISAM)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB锁问题"><span class="post-toc-text">InnoDB锁问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#InnoDB实现了以下两种类型的行锁。"><span class="post-toc-text">InnoDB实现了以下两种类型的行锁。</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么时候使用表锁"><span class="post-toc-text">什么时候使用表锁</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MVCC的基本原理（乐观锁）-多版本并发控制"><span class="post-toc-text">MVCC的基本原理（乐观锁）  多版本并发控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB存储引擎MVCC的实现策略："><span class="post-toc-text">InnoDB存储引擎MVCC的实现策略：</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#事务控制"><span class="post-toc-text">事务控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的特点"><span class="post-toc-text">事务的特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隔离级别"><span class="post-toc-text">隔离级别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事务的经典例子"><span class="post-toc-text">事务的经典例子</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分布式事务"><span class="post-toc-text">分布式事务</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#XA事务"><span class="post-toc-text">XA事务</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL中的锁机制"><span class="post-toc-text">MySQL中的锁机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两段锁"><span class="post-toc-text">两段锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#死锁"><span class="post-toc-text">死锁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MySQL表级锁的锁模式（MyISAM"><span class="post-toc-text">MySQL表级锁的锁模式（MyISAM)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB锁问题"><span class="post-toc-text">InnoDB锁问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#InnoDB实现了以下两种类型的行锁。"><span class="post-toc-text">InnoDB实现了以下两种类型的行锁。</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#什么时候使用表锁"><span class="post-toc-text">什么时候使用表锁</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MVCC的基本原理（乐观锁）-多版本并发控制"><span class="post-toc-text">MVCC的基本原理（乐观锁）  多版本并发控制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#InnoDB存储引擎MVCC的实现策略："><span class="post-toc-text">InnoDB存储引擎MVCC的实现策略：</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -259,6 +259,14 @@
 <li>在储蓄账户余额中增加200美元；</li>
 </ol>
 <p>上述三个步骤的操作必须打包在一个事务中，任何一个步骤失败，则必须回滚所有的步骤。则SQL为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start transaction;</span><br><span class="line">select balance from checking where id=&quot;Jane&quot;;</span><br><span class="line">update checking set balance = balance-200 where id = &quot;Jane&quot;;</span><br><span class="line">update savings set balance = balance+200 where id = &quot;Jane&quot;;</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure></p>
+<h2 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h2><p>分布式事务指的是允许多个独立的事务资源参与到一个全局的事务中。事务资源通常是关系型数据库，但也可以是其他类型的资源。全局事务要求在其中的所有参与的事务要么都提交，要么都回滚，这对于事务原有的ACID要求又有了提高。  </p>
+<h3 id="XA事务"><a href="#XA事务" class="headerlink" title="XA事务"></a>XA事务</h3><p>XA事务允许不同数据库之间的分布式事务，其由一个或多个资源管理器、一个事务管理器以及一个应用程序组成。</p>
+<ul>
+<li>资源管理器：提供访问事务资源的方法，通常一个数据库就是一个资源管理器。</li>
+<li>事务管理器：协调参与全局事务中的各个事务，需要和参与全局事务的所有资源管理器进行通信。</li>
+<li>应用程序：定义事务的边界，指定全局事务中的操作。</li>
+</ul>
+<p>分布式事务使用两段提交的方式。在第一阶段，所以参与全局事务的节点都开始准备，告诉事务管理器他们准备好提交了。在第二阶段，事务管理器告诉资源器执行rollback还是commit。如果任何一个节点显示不能提交，则所有的节点都被告知需要回滚。</p>
 <h2 id="MySQL中的锁机制"><a href="#MySQL中的锁机制" class="headerlink" title="MySQL中的锁机制"></a>MySQL中的锁机制</h2><p>数据库为了维护ACID，尤其是一致性和隔离性，一般使用加锁的方式。同时由于数据库是个高并发的应用，同一时间有大量的并发访问，如果加锁过度，会极大的降低并发处理的能力。所以对于加锁的处理，是数据库对于事务处理的精髓所在。</p>
 <h3 id="两段锁"><a href="#两段锁" class="headerlink" title="两段锁"></a>两段锁</h3><p>两段锁协议将事务分成两个阶段：加锁阶段和解锁阶段  </p>
 <ul>
@@ -337,7 +345,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-24T08:10:21.756Z" itemprop="dateUpdated">2018-09-24 16:10:21</time>
+    最后更新时间：<time datetime="2018-09-30T12:58:20.779Z" itemprop="dateUpdated">2018-09-30 20:58:20</time>
 </span><br>
 
 
@@ -511,7 +519,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>周学武 &copy; 2018</span>
+        <p><span>周学武 &copy; 2018 - 2019</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>

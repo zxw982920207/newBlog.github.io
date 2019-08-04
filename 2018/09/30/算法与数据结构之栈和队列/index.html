@@ -13,28 +13,28 @@
     
     
     
-    <link rel="canonical" href="http://sharvy.top/2018/09/26/MySQL高级特性/">
+    <link rel="canonical" href="http://sharvy.top/2018/09/30/算法与数据结构之栈和队列/">
     
     
-    <title>MySQL高级特性 | 我的博客 | 彩虹下的人不会迷失方向！</title>
+    <title>算法和数据结构之栈和队列 | 我的博客 | 彩虹下的人不会迷失方向！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="MySQL">
-    <meta name="description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
-<meta name="keywords" content="MySQL">
+    <meta name="keywords" content="数据结构,栈和队列">
+    <meta name="description" content="用递归函数和栈操作逆序一个栈 12345678910111213141516171819202122232425262728293031public class reverseStack &amp;#123;	public static int getAndRemoveLastElement(Stack&amp;lt;Integer&amp;gt; stack) &amp;#123;		int result = stack.p">
+<meta name="keywords" content="数据结构,栈和队列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL高级特性">
-<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/index.html">
+<meta property="og:title" content="算法和数据结构之栈和队列">
+<meta property="og:url" content="https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
+<meta property="og:description" content="用递归函数和栈操作逆序一个栈 12345678910111213141516171819202122232425262728293031public class reverseStack &amp;#123;	public static int getAndRemoveLastElement(Stack&amp;lt;Integer&amp;gt; stack) &amp;#123;		int result = stack.p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-28T08:42:05.981Z">
+<meta property="og:updated_time" content="2019-08-03T09:46:04.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL高级特性">
-<meta name="twitter:description" content="分区表在下列场景中，分区可以起到非常大的作用：  表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据； 分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作； 分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备； 可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥">
+<meta name="twitter:title" content="算法和数据结构之栈和队列">
+<meta name="twitter:description" content="用递归函数和栈操作逆序一个栈 12345678910111213141516171819202122232425262728293031public class reverseStack &amp;#123;	public static int getAndRemoveLastElement(Stack&amp;lt;Integer&amp;gt; stack) &amp;#123;		int result = stack.p">
     
         <link rel="alternate" type="application/atom+xml" title="我的博客" href="/atom.xml">
     
@@ -115,7 +115,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">MySQL高级特性</div>
+        <div class="flex-col header-title ellipsis">算法和数据结构之栈和队列</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -137,11 +137,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">MySQL高级特性</h1>
+        <h1 class="title">算法和数据结构之栈和队列</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-09-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
-  2018-09-26
+                <time datetime="2018-09-29T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-30
 </time>
 
 
@@ -157,21 +157,14 @@
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分区表"><span class="post-toc-text">分区表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#视图"><span class="post-toc-text">视图</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存储过程和函数"><span class="post-toc-text">存储过程和函数</span></a></li></ol>
-        </nav>
-    </aside>
 
-
-<article id="post-MySQL高级特性"
+<article id="post-算法与数据结构之栈和队列"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">MySQL高级特性</h1>
+        <h1 class="post-card-title">算法和数据结构之栈和队列</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-09-26 00:00:00" datetime="2018-09-25T16:00:00.000Z"  itemprop="datePublished">2018-09-26</time>
+            <time class="post-time" title="2018-09-30 00:00:00" datetime="2018-09-29T16:00:00.000Z"  itemprop="datePublished">2018-09-30</time>
 
             
 
@@ -184,18 +177,12 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><p>在下列场景中，分区可以起到非常大的作用：</p>
-<ul>
-<li>表非常大以至于无法全部都放在内存中，或者只在表的最后部分有热点数据，其他均是历史数据；</li>
-<li>分区表的数据更容易维护。例如想批量删除大量数据可以使用清除整个分区的方式，另外还可以对独立分区进行优化、检查、修复等操作；</li>
-<li>分区表的数据可以分布在不同的物理设备上，从而高效地利用多个硬件设备；</li>
-<li>可以使用分区表来避免某些特殊的瓶颈，例如InnoDB的单个索引的互斥访问；</li>
-<li>如果需要，还可以备份和恢复独立的分区，这在非常大的数据集的场景下效果非常好；</li>
-</ul>
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图本身是一个虚拟表，不存放任何数据。在使用视图时，其返回数据是MySQL从其他表中生成的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">视图的创建</span><br><span class="line">create view viewname as ...(select语句)</span><br><span class="line">访问视图</span><br><span class="line">select colname from viewname;</span><br><span class="line">删除视图</span><br><span class="line">drop view viewname;</span><br></pre></td></tr></table></figure></p>
-<h2 id="存储过程和函数"><a href="#存储过程和函数" class="headerlink" title="存储过程和函数"></a>存储过程和函数</h2><p>存储过程和函数是事先经过编译并存储在数据库中的一段SQL语句的集合，调用存储过程和函数可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是很有好处的。</p>
-<p>存储过程和函数的区别在于，函数必须有返回值，而存储过程没有，存储过程的参数可以使用IN、OUT、INOUT类型，而函数只能使用IN类型。如果有函数从其他类型的数据库迁移到MySQL，那么就可能因此需要将函数改造成存储过程。IN参数是传入，OUT参数传出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">创建存储过程</span><br><span class="line">create procedure name()</span><br><span class="line">begin</span><br><span class="line">  ...  SQL语句</span><br><span class="line">end;</span><br></pre></td></tr></table></figure></p>
-<p>存储过程和函数中可以使用变量，通过declare可以定义一个局部变量，该局部变量的作用范围只能在begin…end块中。变量的定义必须写在复合语句的开头，并且在任何其他语句的前面。</p>
+            <ol>
+<li><p>用递归函数和栈操作逆序一个栈</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class reverseStack &#123;</span><br><span class="line">	public static int getAndRemoveLastElement(Stack&lt;Integer&gt; stack) &#123;</span><br><span class="line">		int result = stack.pop();</span><br><span class="line">		if (stack.isEmpty()) &#123;</span><br><span class="line">			return result;</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;</span><br><span class="line">			int last=getAndRemoveLastElement(stack);</span><br><span class="line">			stack.push(result);</span><br><span class="line">			return last;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void reverse(Stack&lt;Integer&gt; stack) &#123;</span><br><span class="line">		if(stack.isEmpty()) &#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		int i = getAndRemoveLastElement(stack);</span><br><span class="line">		reverse(stack);</span><br><span class="line">		stack.push(i);</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();</span><br><span class="line">		for(int i=1;i&lt;=5;i++) &#123;</span><br><span class="line">			stack.push(i);</span><br><span class="line">		&#125;</span><br><span class="line">		reverse(stack);</span><br><span class="line">		while(!stack.isEmpty()) &#123;</span><br><span class="line">			System.out.println(stack.pop());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
 
         </div>
 
@@ -204,12 +191,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-28T08:42:05.981Z" itemprop="dateUpdated">2018-09-28 16:42:05</time>
+    最后更新时间：<time datetime="2019-08-03T09:46:04.850Z" itemprop="dateUpdated">2019-08-03 17:46:04</time>
 </span><br>
 
 
         
-        转载请注明出处：<a href="/2018/09/26/MySQL高级特性/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/</a>
+        转载请注明出处：<a href="/2018/09/30/算法与数据结构之栈和队列/" target="_blank" rel="external">https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/</a>
         
     </div>
     
@@ -230,7 +217,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈和队列/">栈和队列</a></li></ul>
 
 
             
@@ -240,7 +227,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&title=《算法和数据结构之栈和队列》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -250,22 +237,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&title=《算法和数据结构之栈和队列》 — 我的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL高级特性》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《算法和数据结构之栈和队列》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -288,18 +275,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2018/09/27/Synchronized应用及其原理/" id="post-prev" class="post-nav-link">
+      <a href="/2019/08/03/mabatis基础/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Sychronized应用及其原理</h4>
+        <h4 class="title">Mabatis基础</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2018/09/26/volatile实现及其原理/" id="post-next" class="post-nav-link">
+      <a href="/2018/09/27/Synchronized应用及其原理/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">volatile实现及其原理</h4>
+        <h4 class="title">Sychronized应用及其原理</h4>
       </a>
     </div>
   
@@ -396,7 +383,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&title=《算法和数据结构之栈和队列》 — 我的博客&pic=https://raw.githubusercontent.com/zxw982920207/zxw982920207.github.io/master/img/IMG_0473.JPG" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -406,22 +393,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&title=《MySQL高级特性》 — 我的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&title=《算法和数据结构之栈和队列》 — 我的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MySQL高级特性》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《算法和数据结构之栈和队列》 — 我的博客&url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/&via=https://github.com/zxw982920207/zxw982920207.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -432,7 +419,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/26/MySQL高级特性/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://github.com/zxw982920207/zxw982920207.github.io/2018/09/30/算法与数据结构之栈和队列/" alt="微信分享二维码">
 </div>
 
 

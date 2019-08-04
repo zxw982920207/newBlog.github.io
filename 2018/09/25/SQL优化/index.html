@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="优化SQL语句的一般步骤通过show status命令了解各种SQL的执行频率1show status like &amp;apos;com_%&amp;apos;; 结果中表示每个语句执行的次数，这样很容易了解当前数据库是以插入更新为主还是以查询操作为主，以及各种类型SQL大致的执行比例是多少。 定位执行效率较低的SQL语句可以通过以下两种方式定位执行效率较低的SQL语句。  通过慢查询日志定位那些执行效率较低">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-28T08:42:19.278Z">
+<meta property="og:updated_time" content="2019-08-03T09:46:08.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL优化">
 <meta name="twitter:description" content="优化SQL语句的一般步骤通过show status命令了解各种SQL的执行频率1show status like &amp;apos;com_%&amp;apos;; 结果中表示每个语句执行的次数，这样很容易了解当前数据库是以插入更新为主还是以查询操作为主，以及各种类型SQL大致的执行比例是多少。 定位执行效率较低的SQL语句可以通过以下两种方式定位执行效率较低的SQL语句。  通过慢查询日志定位那些执行效率较低">
@@ -160,7 +160,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优化SQL语句的一般步骤"><span class="post-toc-text">优化SQL语句的一般步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通过show-status命令了解各种SQL的执行频率"><span class="post-toc-text">通过show status命令了解各种SQL的执行频率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定位执行效率较低的SQL语句"><span class="post-toc-text">定位执行效率较低的SQL语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通过explain分析低效SQL的执行计划"><span class="post-toc-text">通过explain分析低效SQL的执行计划</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确认问题并采取相应的优化措施"><span class="post-toc-text">确认问题并采取相应的优化措施</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL查询执行的基础"><span class="post-toc-text">MySQL查询执行的基础</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优化SQL语句的一般步骤"><span class="post-toc-text">优化SQL语句的一般步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通过show-status命令了解各种SQL的执行频率"><span class="post-toc-text">通过show status命令了解各种SQL的执行频率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定位执行效率较低的SQL语句"><span class="post-toc-text">定位执行效率较低的SQL语句</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#通过explain分析低效SQL的执行计划"><span class="post-toc-text">通过explain分析低效SQL的执行计划</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#确认问题并采取相应的优化措施"><span class="post-toc-text">确认问题并采取相应的优化措施</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#重构查询的方式"><span class="post-toc-text">重构查询的方式</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MySQL查询执行的基础"><span class="post-toc-text">MySQL查询执行的基础</span></a></li></ol>
         </nav>
     </aside>
 
@@ -249,6 +249,19 @@
 <li>尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理；</li>
 </ol>
 <p>总体来说：就是建立索引，避免全表扫描；</p>
+<h3 id="重构查询的方式"><a href="#重构查询的方式" class="headerlink" title="重构查询的方式"></a>重构查询的方式</h3><ol>
+<li>一个复杂查询还是多个简单查询；</li>
+<li>切分查询，对于一个大查询，需要分而治之；</li>
+<li>分解关联查询；  </li>
+</ol>
+<p>分解关联查询的优势：</p>
+<ul>
+<li>让缓存的效率更高；</li>
+<li>将查询分解后，执行单个查询可以减少锁的竞争；</li>
+<li>在应用层做关联，可以更容易对数据库进行拆分，更容易做到高性能和可扩展；</li>
+<li>查询本身效率也可能会有所提升；</li>
+<li>可以减少冗余记录的查询；</li>
+</ul>
 <h2 id="MySQL查询执行的基础"><a href="#MySQL查询执行的基础" class="headerlink" title="MySQL查询执行的基础"></a>MySQL查询执行的基础</h2><ol>
 <li>客户端发送一条查询给服务器；</li>
 <li>服务器先检查查询缓存，如果命中了缓存，则立刻返回存储在缓存中的结果，否则进入下一阶段；</li>
@@ -264,7 +277,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-09-28T08:42:19.278Z" itemprop="dateUpdated">2018-09-28 16:42:19</time>
+    最后更新时间：<time datetime="2019-08-03T09:46:08.261Z" itemprop="dateUpdated">2019-08-03 17:46:08</time>
 </span><br>
 
 
@@ -438,7 +451,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>周学武 &copy; 2018</span>
+        <p><span>周学武 &copy; 2018 - 2019</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
